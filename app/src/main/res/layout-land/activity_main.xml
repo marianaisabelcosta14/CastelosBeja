@@ -1,6 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="fill_parent"
+    android:background="@color/colorfundo"
     android:layout_height="fill_parent">
 
     <fragment android:name="com.example.asus.castelosbeja.CastlesFragment"

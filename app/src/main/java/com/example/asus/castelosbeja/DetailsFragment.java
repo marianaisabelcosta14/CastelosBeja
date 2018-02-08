@@ -6,13 +6,21 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.asus.castelosbeja.model.Castelo;
+import com.example.asus.castelosbeja.model.CastelosData;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class DetailsFragment extends Fragment {
+
+    private ImageView contact = null;
+    private ImageView gps = null;
+    private ImageView imageCastelo = null;
 
 
     public DetailsFragment() {
@@ -37,8 +45,15 @@ public class DetailsFragment extends Fragment {
         if (args != null) {
             // Set article based on argument passed in
             int currentPosition = args.getInt("position");
-            TextView articleTextView = (TextView) getActivity().findViewById(R.id.details_textview);
-            articleTextView.setText(CastelosData.Details[currentPosition]);
+
+            TextView detailsTextView = (TextView) getActivity().findViewById(R.id.details_textview);
+            final Castelo castelo = CastelosData.getCastelos().get(currentPosition);
+            detailsTextView.setText(castelo.getDetails());
+
+            TextView nameCasteloTextView = (TextView) getActivity().findViewById(R.id.textViewName);
+            nameCasteloTextView.setText(castelo.getName());
+
+            contact = (ImageView) getActivity().findViewById(R.id.imageViewContact);
         }
     }
 
