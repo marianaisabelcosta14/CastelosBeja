@@ -48,7 +48,7 @@ public class CastelosAdapter extends BaseAdapter {
             view = LayoutInflater.from(this.context).inflate(R.layout.list_row_castelos, viewGroup, false);
         }
 
-        TextView textView = view.findViewById(R.id.textViewName);
+        TextView textView = view.findViewById(R.id.textViewNameList);
 
         Castelo castelo = getItem(i);
         textView.setText(castelo.getName());

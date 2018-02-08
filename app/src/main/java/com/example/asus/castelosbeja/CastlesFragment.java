@@ -9,6 +9,7 @@ import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -46,5 +47,20 @@ public class CastlesFragment extends Fragment {
         this.adapter = new CastelosAdapter(getActivity(), CastelosData.getCastelos());
         ListView listViewCastelos = getActivity().findViewById(R.id.castelosListView);
         listViewCastelos.setAdapter(adapter);
+        listViewCastelos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Castelo castelo = adapter.getItem(i);
+                DetailsFragment articleFrag = (DetailsFragment)
+                        getActivity().getSupportFragmentManager().findFragmentById(R.id.fragment_details);
+
+                if (articleFrag != null) {
+                    // If article frag is available, we're in two-pane layout...
+
+                    // Call a method in the ArticleFragment to update its content
+                    articleFrag.updateDetailsView(i);
+                }
+            }
+        });
     }
 }
