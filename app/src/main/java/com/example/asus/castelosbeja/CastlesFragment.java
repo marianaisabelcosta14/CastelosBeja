@@ -44,23 +44,41 @@ public class CastlesFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        this.adapter = new CastelosAdapter(getActivity(), CastelosData.getCastelos());
-        ListView listViewCastelos = getActivity().findViewById(R.id.castelosListView);
-        listViewCastelos.setAdapter(adapter);
-        listViewCastelos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Castelo castelo = adapter.getItem(i);
-                DetailsFragment articleFrag = (DetailsFragment)
-                        getActivity().getSupportFragmentManager().findFragmentById(R.id.fragment_details);
+        if (getActivity().findViewById(R.id.fragment_container) != null || getActivity().findViewById(R.id.fragment_castles) != null) {
+            this.adapter = new CastelosAdapter(getActivity(), CastelosData.getCastelos());
+            ListView listViewCastelos = getActivity().findViewById(R.id.castelosListView);
+            if(listViewCastelos != null) {
+                listViewCastelos.setAdapter(adapter);
+                listViewCastelos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        Castelo castelo = adapter.getItem(i);
 
-                if (articleFrag != null) {
-                    // If article frag is available, we're in two-pane layout...
+                        if (getActivity().findViewById(R.id.fragment_container) != null) {
+                            DetailsFragment newFragment = FragmentCache.getDetailsFragment1();
 
-                    // Call a method in the ArticleFragment to update its content
-                    articleFrag.updateDetailsView(i);
-                }
+                            Bundle args = new Bundle();
+
+                            args.putInt(DetailsFragment.ARG_POSITION, i);
+                            newFragment.setArguments(args);
+
+                            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+
+                            // Replace whatever is in the fragment_container view with this fragment,
+                            // and add the transaction to the back stack so the user can navigate back
+                            transaction.replace(R.id.fragment_container, newFragment);
+                            transaction.addToBackStack(null);
+
+                            // Commit the transaction
+                            transaction.commit();
+                        } else {
+                            DetailsFragment detailsFrag = (DetailsFragment)
+                                    getActivity().getSupportFragmentManager().findFragmentById(R.id.fragment_details);
+                            detailsFrag.updateDetailsView(i);
+                        }
+                    }
+                });
             }
-        });
+        }
     }
 }

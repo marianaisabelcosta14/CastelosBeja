@@ -79,7 +79,7 @@
 
     <ImageView
         android:id="@+id/imageViewCastelo"
-        android:layout_width="188dp"
+        android:layout_width="349dp"
         android:layout_height="188dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
