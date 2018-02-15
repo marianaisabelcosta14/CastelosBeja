@@ -54,7 +54,6 @@ public class DetailsFragment extends Fragment {
     }
 
     public void updateDetailsView(int i) {
-        if (getActivity().findViewById(R.id.fragment_container) != null) {
             final Castelo castelo = CastelosData.getCastelos().get(i);
 
             TextView detailsTextView = (TextView) getActivity().findViewById(R.id.details_textview);
@@ -92,4 +91,3 @@ public class DetailsFragment extends Fragment {
 
         }
     }
-}

@@ -52,7 +52,6 @@ public class CastlesFragment extends Fragment {
                 listViewCastelos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                        Castelo castelo = adapter.getItem(i);
 
                         if (getActivity().findViewById(R.id.fragment_container) != null) {
                             DetailsFragment newFragment = FragmentCache.getDetailsFragment1();
@@ -72,9 +71,23 @@ public class CastlesFragment extends Fragment {
                             // Commit the transaction
                             transaction.commit();
                         } else {
-                            DetailsFragment detailsFrag = (DetailsFragment)
-                                    getActivity().getSupportFragmentManager().findFragmentById(R.id.fragment_details);
-                            detailsFrag.updateDetailsView(i);
+                            DetailsFragment newFragment = FragmentCache.getDetailsFragment1();
+
+                            Bundle args = new Bundle();
+
+                            args.putInt(DetailsFragment.ARG_POSITION, i);
+                            newFragment.setArguments(args);
+
+                            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+
+                            // Replace whatever is in the fragment_container view with this fragment,
+                            // and add the transaction to the back stack so the user can navigate back
+                            transaction.replace(R.id.fragment_details, newFragment);
+                            transaction.addToBackStack(null);
+
+                            // Commit the transaction
+                            transaction.commit();
+
                         }
                     }
                 });
